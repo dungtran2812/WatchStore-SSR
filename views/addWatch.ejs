@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Watch - Store Management</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+
+<body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title is-3">Add Watch Details</h1>
+
+      <!-- Form to Add watch details -->
+      <form method="POST" action="">
+        <!-- Watch Name Field -->
+        <div class="field">
+          <label class="label">Watch Name</label>
+          <div class="control">
+            <input class="input" type="text" name="watchName" required>
+          </div>
+        </div>
+
+        <!-- Image Field -->
+        <div class="field">
+          <label class="label">Image</label>
+          <div class="control">
+            <input class="input" type="text" name="image" required>
+          </div>
+        </div>
+
+        <!-- Price Field -->
+        <div class="field">
+          <label class="label">Price</label>
+          <div class="control">
+            <input class="input" type="number" name="price" required step="0.01" min="0">
+          </div>
+        </div>
+
+       <!-- Brand Selection Field -->
+       <div class="field">
+        <label class="label">Brand</label>
+        <div class="control">
+          <div class="select">
+            <select name="brand" required>
+              <!-- Assuming you have a list of brands to select from -->
+              <% brands.forEach((brand)=> { %>
+                <option value="<%= brand._id %>">
+                  <%= brand.brandName %>
+                </option>
+                <% }) %>
+            </select>
+          </div>
+        </div>
+      </div>
+
+        <!-- Automatic Field (Checkbox) -->
+        <div class="field">
+          <label class="label">Automatic</label>
+          <div class="control">
+            <!-- Hidden input to submit "false" when checkbox is unchecked -->
+            <input type="hidden" name="Automatic" value="false">
+            <label class="checkbox">
+              <input type="checkbox" name="Automatic" value="true">
+              Automatic Movement
+            </label>
+          </div>
+        </div>
+
+        <!-- Description Field -->
+        <div class="field">
+          <label class="label">Description</label>
+          <div class="control">
+            <textarea class="textarea" name="watchDescription" required></textarea>
+          </div>
+        </div>
+
+        <!-- Buttons for submission and cancellation -->
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-primary" type="submit">Save Changes</button>
+          </div>
+          <div class="control">
+            <a class="button is-light" href="/dashboard">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        Store Management © 2024. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</body>
+
+</html>

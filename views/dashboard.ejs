@@ -68,7 +68,7 @@
     <div class="container">
       <div class="dashboard-header">
         <h1 class="title is-3">Store Management Dashboard</h1>
-        <button class="button is-primary">Add New Product</button>
+        <button class="button is-primary"><a href="/dashboard/add">Add New Product</a></button>
       </div>
 
       <!-- Product Table -->
@@ -83,21 +83,28 @@
             </tr>
           </thead>
           <tbody>
-            <% Watch.forEach((watch, index) => { %>
+            <% Watch.forEach((watch, index)=> { %>
               <tr>
-                <td><%= index + 1 %></td> <!-- Display a numerical index -->
-                <td><%= watch.watchName %></td> <!-- Display the watch name -->
-                <td>$<%= watch.price %></td> <!-- Display the watch price -->
+                <td>
+                  <%= index + 1 %>
+                </td> <!-- Display a numerical index -->
+                <td>
+                  <%= watch.watchName %>
+                </td> <!-- Display the watch name -->
+                <td>$<%= watch.price %>
+                </td> <!-- Display the watch price -->
                 <td>
                   <div class="action-buttons">
                     <a href="/dashboard/edit/<%= watch._id %>" class="button is-small is-info">Edit</a>
-                    <a href="/dashboard/delete/<%= watch._id %>" class="button is-small is-danger">Delete</a>
-                  </div>
+                    <form onsubmit="return confirm(`Are you sure delete <%= watch.watchName %> ?`)" action="/dashboard/delete/<%= watch._id %>" method="post">
+                      <button type="submit" class="button is-small is-danger">Delete</button>
+                    </form>
+                  </div>  
                 </td>
               </tr>
-            <% }) %>
+              <% }) %>
           </tbody>
-          
+
         </table>
       </div>
     </div>
