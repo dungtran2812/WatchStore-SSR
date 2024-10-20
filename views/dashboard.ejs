@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Store Management</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <style>
+    .dashboard-header {
+      margin: 20px 0;
+    }
+
+    .table-container {
+      margin-top: 30px;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .action-buttons .button {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar Section -->
+  <nav class="navbar is-light">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img src="https://www.watchstore.vn/images/config/logo-watchstore3-9-24_1725292445.webp" alt="Watch Store">
+        </a>
+        <div class="navbar-burger" data-target="navbarMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/dashboard">Watch Management</a>
+          <a class="navbar-item" href="/brand-mng">Brand Management</a>
+          <a class="navbar-item" href="#">About</a>
+          <a class="navbar-item" href="#">Contact</a>
+
+          <!-- Check if user is signed in -->
+          <% if (Member) { %>
+            <!-- If signed in, show welcome message and logout button -->
+            <a class="navbar-item">Welcome, <%= Member.membername %>!</a>
+            <a class="navbar-item" href="/users/logout">Logout</a>
+            <% } else { %>
+              <!-- If not signed in, show Sign In button -->
+              <a class="button is-primary" href="/users/login">Sign In</a>
+              <% } %>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- Dashboard Header -->
+  <section class="section">
+    <div class="container">
+      <div class="dashboard-header">
+        <h1 class="title is-3">Store Management Dashboard</h1>
+        <button class="button is-primary">Add New Product</button>
+      </div>
+
+      <!-- Product Table -->
+      <div class="table-container">
+        <table class="table is-fullwidth is-striped is-hoverable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% Watch.forEach((watch, index) => { %>
+              <tr>
+                <td><%= index + 1 %></td> <!-- Display a numerical index -->
+                <td><%= watch.watchName %></td> <!-- Display the watch name -->
+                <td>$<%= watch.price %></td> <!-- Display the watch price -->
+                <td>
+                  <div class="action-buttons">
+                    <a href="/dashboard/edit/<%= watch._id %>" class="button is-small is-info">Edit</a>
+                    <a href="/dashboard/delete/<%= watch._id %>" class="button is-small is-danger">Delete</a>
+                  </div>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+          
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>Store Management</strong> by Your Brand. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</body>
+
+</html>

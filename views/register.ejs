@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <title>Watch Store</title>
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1501167786227-4cba60f6d58f');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+    }
+
+    .register-box {
+      margin-top: 5%;
+    }
+
+    .card {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      border-radius: 15px;
+    }
+
+    .button.is-primary {
+      background-color: #00d1b2;
+      border-color: transparent;
+    }
+
+    .button.is-primary:hover {
+      background-color: #00b89c;
+    }
+
+    .hero.is-primary {
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero is-fullheight">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-5-desktop is-6-tablet">
+            <div class="box register-box">
+              <h1 class="title has-text-centered">Watch Store</h1>
+              <h2 class="subtitle has-text-centered">Create an account</h2>
+              <% if (err) { %>
+                <p><%= err %></p>
+               <% } %>
+              <form action="#" method="POST">
+                <div class="field">
+                  <label class="label">User Name</label>
+                  <div class="control has-icons-left">
+                    <input class="input" name="membername" type="text" placeholder="Enter your email" required>
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label">Password</label>
+                  <div class="control has-icons-left">
+                    <input class="input" name="password" type="password" placeholder="Enter your password" required>
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="checkbox">
+                    <input type="checkbox" required>
+                    I agree to the <a href="#">terms and conditions</a>
+                  </label>
+                </div>
+
+                <div class="control">
+                  <button class="button is-primary is-fullwidth" type="submit">Register</button>
+                </div>
+              </form>
+              <p class="has-text-centered">
+                Already have an account? <a href="/users/login">Login here</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FontAwesome for Icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+
+</html>

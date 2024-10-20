@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= Watch.watchName %> - Watch Details</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <style>
+    .product-image {
+      margin: 20px 0;
+    }
+
+    .product-image img {
+      max-width: 500px;  /* Adjust the maximum width */
+      height: auto;      /* Maintain the aspect ratio */
+    }
+
+    .product-details {
+      margin-top: 30px;
+    }
+
+    .back-button {
+      margin-bottom: 20px;
+    }
+
+    .Watch-info {
+      padding: 10px 0;
+    }
+
+    .comments-section {
+      margin-top: 50px;
+    }
+
+    .comment-box {
+      border: 1px solid #e6e6e6;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .rating {
+      font-size: 1.2rem;
+      color: #ffdd57;
+    }
+
+    .comment-author {
+      font-weight: bold;
+    }
+
+    .comment-content {
+      margin-top: 10px;
+    }
+
+    .add-comment-btn {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar Section -->
+  <nav class="navbar is-light">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img class="image is-128x128" src="https://www.watchstore.vn/images/config/logo-watchstore3-9-24_1725292445.webp" alt="Watch Store">
+        </a>
+        <div class="navbar-burger" data-target="navbarMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/">Home</a>
+          <a class="navbar-item" href="#">Shop</a>
+          <a class="navbar-item" href="#">About</a>
+          <a class="navbar-item" href="#">Contact</a>
+          <% if (Member) { %>
+            <a class="navbar-item">Welcome, <%= Member.membername %>!</a>
+            <a class="navbar-item" href="/users/logout">Logout</a>
+          <% } else { %>
+            <a class="button is-primary" href="/users/login">Sign In</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Section -->
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-two-thirds">
+          <figure class="image product-image">
+            <img src="<%= Watch.image %>" alt="<%= Watch.watchName %>">
+          </figure>
+        </div>
+        <div class="column is-one-third product-details">
+          <h1 class="title is-3"><%= Watch.watchName %></h1>
+          <h2 class="subtitle is-4">$<%= Watch.price %></h2>
+          <p class="Watch-info"><strong>Description:</strong> <%= Watch.watchDescription %></p>
+          <p class="Watch-info"><strong>Automatic:</strong> <%= Watch.Automatic ? 'Yes' : 'No' %></p>
+          <p class="Watch-info"><strong>Brand:</strong> <%= Watch?.brand.brandName %></p>
+          <div class="buttons">
+            <a href="/cart/add/<%= Watch._id %>" class="button is-primary is-large">Add to Cart</a>
+            <a href="/shop" class="button is-light back-button">Back to Shop</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comments Section -->
+<div class="comments-section">
+  <h2 class="title is-4">Customer Reviews</h2>
+
+  <!-- Display error message if exists -->
+  <% if (err) { %>
+    <div class="notification is-danger">
+      <button class="delete"></button>
+      <%= err %>
+    </div>
+  <% } %>
+
+  <!-- Loop through the comments -->
+  <% Watch.comments.forEach((comment) => { %>
+    <div class="comment-box">
+      <span class="rating">
+        <% for (let i = 0; i < comment.rating; i++) { %>
+          &#9733;
+        <% } %>
+      </span>
+      <p class="comment-author">By <%= comment.author.membername %></p>
+      <p class="comment-content"><%= comment.content %></p>
+      <p class="is-size-7">Posted on: <%= comment.createdAt.toDateString() %></p>
+    </div>
+  <% }) %>
+
+  <!-- Add a Comment Form for Members -->
+  <% if (Member) { %>
+    <h3 class="title is-5">Add a Comment</h3>
+    <form action="" method="POST">
+      <div class="field">
+        <label class="label">Rating</label>
+        <div class="control">
+          <div class="select">
+            <select name="rating" required>
+              <option value="1">1 Star</option>
+              <option value="2">2 Stars</option>
+              <option value="3">3 Stars</option>
+              <option value="4">4 Stars</option>
+              <option value="5">5 Stars</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Comment</label>
+        <div class="control">
+          <textarea class="textarea" name="content" placeholder="Write your comment here" required></textarea>
+        </div>
+      </div>
+
+      <div class="control">
+        <button type="submit" class="button is-primary add-comment-btn">Post Comment</button>
+      </div>
+    </form>
+  <% } else { %>
+    <p class="has-text-danger">Please <a href="/users/login">log in</a> to add a comment.</p>
+  <% } %>
+</div>
+
+
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>Watch Store</strong> by <a href="#">Your Brand</a>. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</body>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Select all delete buttons in the notifications
+    (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+      const $notification = $delete.parentNode;
+
+      // Add click event to remove the notification
+      $delete.addEventListener('click', () => {
+        $notification.parentNode.removeChild($notification);
+      });
+    });
+  });
+</script>
+
+
+</html>
