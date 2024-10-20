@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - Store Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar is-light">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <img src="https://www.watchstore.vn/images/config/logo-watchstore3-9-24_1725292445.webp" alt="Watch Store">
+                </a>
+                <div class="navbar-burger" data-target="navbarMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-end">
+                  <a class="navbar-item" href="/dashboard">Watch Management</a>
+                  <a class="navbar-item" href="/brand-mng">Brand Management</a>
+                  <a class="navbar-item" href="/users/mng">Users Management</a>
+                    <a class="navbar-item" href="#">Contact</a>
+
+                    <!-- Check if user is signed in -->
+                    <% if (Member) { %>
+                    <!-- If signed in, show welcome message and logout button -->
+                    <a class="navbar-item">Welcome, <%= Member.membername %>!</a>
+                    <a class="navbar-item" href="/users/logout">Logout</a>
+                    <% } else { %>
+                    <!-- If not signed in, show Sign In button -->
+                    <a class="button is-primary" href="/users/login">Sign In</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-3">User Management</h1>
+
+            <!-- User Table -->
+            <div class="table-container">
+                <table class="table is-fullwidth is-striped is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Member Name</th>
+                            <th>Is Admin</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <% users.forEach(user => { %>
+                        <tr>
+                          <td><%= user._id %></td>
+                          <td><%= user.membername %></td>
+                          <td><%= user.isAdmin ? 'Yes' : 'No' %></td>
+                          <td><%= new Date(user.createdAt).toLocaleString() %></td>
+                          <td><%= new Date(user.updatedAt).toLocaleString() %></td>
+                      </tr>
+                      <% }) %>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                Store Management © 2024. All rights reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

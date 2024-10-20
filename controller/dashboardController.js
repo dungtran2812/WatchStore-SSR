@@ -84,19 +84,17 @@ class dashboardController {
   editWatchPage(req, res) {
     const { watchName, image, price, Automatic, watchDescription, brand } = req.body;
     const member = req.session.member || null;
+    console.log("Automatic", Automatic)
     try {
       if (member?.isAdmin) {
         Watch.findOneAndUpdate({ _id: req.params.id }, {
-          watchName,
-          image,
-          price,
+          ...req.body,
           Automatic: Automatic == "true" ? true : false,
-          watchDescription,
           brand: new mongoose.Types.ObjectId(brand),
         }, { new: true })
           .then((watch) => {
             console.log(watch)
-            res.redirect(`/dashboard/edit/${watch._id}`)
+            res.redirect(`/dashboard`)
           })
       } else {
         res.redirect('/')

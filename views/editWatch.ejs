@@ -48,7 +48,7 @@
       <h1 class="title is-3">Edit Watch Details</h1>
 
       <!-- Form to edit watch details -->
-      <form method="POST" action="">
+      <form onsubmit="return confirm(`Are you sure to edit watch`)" method="POST" action="">
         <!-- Watch Name Field -->
         <div class="field">
           <label class="label">Watch Name</label>
@@ -63,7 +63,12 @@
           <div class="control">
             <input class="input" type="text" name="image" value="<%= Watch.image %>" required>
           </div>
+          <!-- Display Image Preview -->
+          <figure class="image is-128x128 mt-2">
+            <img src="<%= Watch.image %>" alt="Watch Image">
+          </figure>
         </div>
+
 
         <!-- Price Field -->
         <div class="field">
@@ -95,7 +100,6 @@
           <label class="label">Automatic</label>
           <div class="control">
             <!-- Hidden input to submit "false" when checkbox is unchecked -->
-            <input type="hidden" name="Automatic" value="false">
             <label class="checkbox">
               <input type="checkbox" name="Automatic" value="true" <%=Watch.Automatic ? 'checked' : '' %>>
               Automatic Movement
@@ -121,7 +125,7 @@
             <!-- Buttons for submission and cancellation -->
             <div class="field is-grouped">
               <div class="control">
-                <button class="button is-primary" type="submit">Save Changes</button>
+                <form action="" method="post"><button class="button is-primary" type="submit">Save Changes</button></form>
               </div>
               <div class="control">
                 <a class="button is-light" href="/dashboard">Cancel</a>
@@ -140,13 +144,13 @@
   </footer>
 </body>
 
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p>
-        Store Management © 2024. All rights reserved.
-      </p>
-    </div>
-  </footer>
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      Store Management © 2024. All rights reserved.
+    </p>
+  </div>
+</footer>
 </body>
 
 </html>

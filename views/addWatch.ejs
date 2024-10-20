@@ -9,12 +9,46 @@
 </head>
 
 <body>
+  <!-- Navbar Section -->
+  <nav class="navbar is-light">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img src="https://www.watchstore.vn/images/config/logo-watchstore3-9-24_1725292445.webp" alt="Watch Store">
+        </a>
+        <div class="navbar-burger" data-target="navbarMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/dashboard">Watch Management</a>
+          <a class="navbar-item" href="/brand-mng">Brand Management</a>
+          <a class="navbar-item" href="#">About</a>
+          <a class="navbar-item" href="#">Contact</a>
+
+          <!-- Check if user is signed in -->
+          <% if (Member) { %>
+            <!-- If signed in, show welcome message and logout button -->
+            <a class="navbar-item">Welcome, <%= Member.membername %>!</a>
+            <a class="navbar-item" href="/users/logout">Logout</a>
+            <% } else { %>
+              <!-- If not signed in, show Sign In button -->
+              <a class="button is-primary" href="/users/login">Sign In</a>
+              <% } %>
+        </div>
+      </div>
+    </div>
+  </nav>
   <section class="section">
     <div class="container">
       <h1 class="title is-3">Add Watch Details</h1>
 
       <!-- Form to Add watch details -->
-      <form method="POST" action="">
+      <form onsubmit="return confirm(`Are you sure to add new watch`)" action="" method="post">
         <!-- Watch Name Field -->
         <div class="field">
           <label class="label">Watch Name</label>
@@ -39,22 +73,22 @@
           </div>
         </div>
 
-       <!-- Brand Selection Field -->
-       <div class="field">
-        <label class="label">Brand</label>
-        <div class="control">
-          <div class="select">
-            <select name="brand" required>
-              <!-- Assuming you have a list of brands to select from -->
-              <% brands.forEach((brand)=> { %>
-                <option value="<%= brand._id %>">
-                  <%= brand.brandName %>
-                </option>
-                <% }) %>
-            </select>
+        <!-- Brand Selection Field -->
+        <div class="field">
+          <label class="label">Brand</label>
+          <div class="control">
+            <div class="select">
+              <select name="brand" required>
+                <!-- Assuming you have a list of brands to select from -->
+                <% brands.forEach((brand)=> { %>
+                  <option value="<%= brand._id %>">
+                    <%= brand.brandName %>
+                  </option>
+                  <% }) %>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
 
         <!-- Automatic Field (Checkbox) -->
         <div class="field">
@@ -80,7 +114,9 @@
         <!-- Buttons for submission and cancellation -->
         <div class="field is-grouped">
           <div class="control">
+
             <button class="button is-primary" type="submit">Save Changes</button>
+
           </div>
           <div class="control">
             <a class="button is-light" href="/dashboard">Cancel</a>

@@ -8,9 +8,11 @@ const bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/usersRoute');
 var dashboardRouter = require('./routes/dashboardRoute');
+const brandRouter = require('./routes/brandRoute');
 //declare url and connect db
 const mongoose = require('mongoose');
 const session = require('express-session');
+
 const url = "mongodb://localhost:27017/watchstore";
 const connect = mongoose.connect(url);
 
@@ -41,6 +43,7 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/dashboard', dashboardRouter);
+app.use('/brand-mng', brandRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -65,7 +65,7 @@
     <div class="container">
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
-          <img class="image is-128x128" src="https://www.watchstore.vn/images/config/logo-watchstore3-9-24_1725292445.webp" alt="Watch Store">
+          <img src="https://www.watchstore.vn/images/config/logo-watchstore3-9-24_1725292445.webp" alt="Watch Store">
         </a>
         <div class="navbar-burger" data-target="navbarMenu">
           <span></span>
@@ -77,7 +77,7 @@
       <div id="navbarMenu" class="navbar-menu">
         <div class="navbar-end">
           <a class="navbar-item" href="/">Home</a>
-          <a class="navbar-item" href="#">Shop</a>
+          <a class="navbar-item" href="/shop">Shop</a>
           <a class="navbar-item" href="#">About</a>
           <a class="navbar-item" href="#">Contact</a>
           <% if (Member) { %>
@@ -90,7 +90,7 @@
       </div>
     </div>
   </nav>
-
+  
   <!-- Main Content Section -->
   <section class="section">
     <div class="container">
@@ -126,15 +126,15 @@
   <% } %>
 
   <!-- Loop through the comments -->
-  <% Watch.comments.forEach((comment) => { %>
+  <% Watch?.comments.forEach((comment) => { %>
     <div class="comment-box">
       <span class="rating">
-        <% for (let i = 0; i < comment.rating; i++) { %>
+        <% for (let i = 0; i < comment?.rating; i++) { %>
           &#9733;
         <% } %>
       </span>
-      <p class="comment-author">By <%= comment.author.membername %></p>
-      <p class="comment-content"><%= comment.content %></p>
+      <p class="comment-author">By <%= comment?.author.membername %></p>
+      <p class="comment-content"><%= comment?.content %></p>
       <p class="is-size-7">Posted on: <%= comment.createdAt.toDateString() %></p>
     </div>
   <% }) %>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - Store Management</title>
+  <title>Admin Dashboard - Brand Management</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   <style>
     .dashboard-header {
@@ -46,17 +46,17 @@
           <a class="navbar-item" href="/dashboard">Watch Management</a>
           <a class="navbar-item" href="/brand-mng">Brand Management</a>
           <a class="navbar-item" href="/users/mng">Users Management</a>
-          <a class="navbar-item" href="/users/profile">Profile</a>
+          <a class="navbar-item" href="#">Contact</a>
 
           <!-- Check if user is signed in -->
           <% if (Member) { %>
             <!-- If signed in, show welcome message and logout button -->
             <a class="navbar-item">Welcome, <%= Member.membername %>!</a>
             <a class="navbar-item" href="/users/logout">Logout</a>
-            <% } else { %>
-              <!-- If not signed in, show Sign In button -->
-              <a class="button is-primary" href="/users/login">Sign In</a>
-              <% } %>
+          <% } else { %>
+            <!-- If not signed in, show Sign In button -->
+            <a class="button is-primary" href="/users/login">Sign In</a>
+          <% } %>
         </div>
       </div>
     </div>
@@ -66,76 +66,49 @@
   <section class="section">
     <div class="container">
       <div class="dashboard-header">
-        <h1 class="title is-3">Store Management Dashboard</h1>
+        <h1 class="title is-3">Brand Management Dashboard</h1>
         <button class="button is-primary">
-          <a href="/dashboard/add">Add New Product</a>
+          <a href="/brand-mng/add">Add New Brand</a>
         </button>
       </div>
 
-      <!-- Product Table -->
+      <!-- Brand Table -->
       <div class="table-container">
         <table class="table is-fullwidth is-striped is-hoverable">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Product Name</th>
-              <th>Image</th>
-              <th>Brand</th>
-              <th>Price</th>
-              <th>Automatic</th>
+              <th>Brand Name</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <% Watch.forEach((watch, index)=> { %>
+            <% brands.forEach((brand, index) => { %>
               <tr>
-                <td>
-                  <%= index + 1 %>
-                </td> <!-- Display numerical index -->
-                <td>
-                  <%= watch.watchName %>
-                </td> <!-- Display watch name -->
-                <td>
-                  <!-- Image Preview -->
-                  <figure class="image is-64x64">
-                    <img src="<%= watch.image %>" alt="<%= watch.watchName %>">
-                  </figure>
-                </td>
-                <td>
-                  <!-- Display brand name (assuming brands object is available) thêm logic ? check data watch -->
-                  
-                  <% const watchBrand=brands.find(brand=> brand._id.toString() === watch?.brand?._id.toString()); %>
-                    <%= watchBrand ? watchBrand?.brandName : 'Unknown' %>
-                </td>
-                <td>$<%= watch.price %>
-                </td> <!-- Display price -->
-                <td>
-                  <!-- Check if Automatic is true -->
-                  <%= watch.Automatic ? 'Yes' : 'No' %>
-                </td>
+                <td><%= index + 1 %></td> <!-- Display numerical index -->
+                <td><%= brand.brandName %></td> <!-- Display brand name -->
                 <td>
                   <div class="action-buttons">
-                    <a href="/dashboard/edit/<%= watch._id %>" class="button is-small is-info">Edit</a>
-                    <form onsubmit="return confirm(`Are you sure you want to delete <%= watch.watchName %>?`)"
-                      action="/dashboard/delete/<%= watch._id %>" method="post">
+                    <a href="/brand-mng/edit/<%= brand._id %>" class="button is-small is-info">Edit</a>
+                    <form onsubmit="return confirm(`Are you sure you want to delete <%= brand.brandName %>?`)"
+                      action="/brand-mng/delete/<%= brand._id %>" method="post">
                       <button type="submit" class="button is-small is-danger">Delete</button>
                     </form>
                   </div>
                 </td>
               </tr>
-              <% }) %>
+            <% }) %>
           </tbody>
         </table>
       </div>
     </div>
   </section>
 
-
   <!-- Footer Section -->
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
-        <strong>Store Management</strong> by Your Brand. All rights reserved.
+        <strong>Brand Management</strong> by Your Brand. All rights reserved.
       </p>
     </div>
   </footer>

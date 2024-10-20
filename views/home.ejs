@@ -83,14 +83,13 @@
         <div class="navbar-end">
           <a class="navbar-item" href="/">Home</a>
           <a class="navbar-item" href="/shop">Shop</a>
-          <a class="navbar-item" href="#">About</a>
-          <a class="navbar-item" href="#">Contact</a>
+          <a class="navbar-item" href="/users/profile">Profile</a>
           <% if (Member) { %>
             <a class="navbar-item">Welcome, <%= Member.membername %>!</a>
             <a class="navbar-item" href="/users/logout">Logout</a>
-          <% } else { %>
-            <a class="button is-primary" href="/users/login">Sign In</a>
-          <% } %>
+            <% } else { %>
+              <a class="button is-primary" href="/users/login">Sign In</a>
+              <% } %>
         </div>
       </div>
     </div>
@@ -106,30 +105,34 @@
       </div>
     </div>
   </section>
-  
+
 
   <!-- Featured Watchs Section -->
   <section class="section">
     <div class="container">
       <h1 class="title has-text-centered">Featured Watchs</h1>
       <div class="columns is-multiline">
-        <% Watch.forEach((Watch) => { %>
-        <!-- Watch Card -->
-        <div class="column is-one-quarter">
-          <div class="card">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <img src="<%= Watch.image %>" alt="Watch Image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <p class="title is-5"><%= Watch.watchName %></p>
-              <p class="subtitle is-6">Brand: <%= Watch.brandName %></p>
-              <p class="subtitle is-6">$<%= Watch.price %></p>
+        <% Watch.forEach((Watch)=> { %>
+          <!-- Watch Card -->
+          <div class="column is-one-quarter">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="<%= Watch.image %>" alt="Watch Image">
+                </figure>
+              </div>
+              <div class="card-content">
+                <p class="title is-5">
+                  <%= Watch.watchName %>
+                </p>
+                <p class="subtitle is-6">Brand: <%= Watch.brandName %>
+                </p>
+                <p class="subtitle is-6">$<%= Watch.price %>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <% }); %>
+          <% }); %>
       </div>
     </div>
   </section>

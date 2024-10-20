@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile - Store Management</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+
+<body>
+  <!-- Navbar Section -->
+  <nav class="navbar is-light">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img src="https://www.watchstore.vn/images/config/logo-watchstore3-9-24_1725292445.webp" alt="Watch Store">
+        </a>
+        <div class="navbar-burger" data-target="navbarMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/">Home</a>
+          <a class="navbar-item" href="/shop">Shop</a>
+          <a class="navbar-item" href="/users/profile">Profile</a>
+
+          <!-- Check if user is signed in -->
+          <% if (user) { %>
+            <a class="navbar-item">Welcome, <%= user.membername %>!</a>
+            <a class="navbar-item" href="/users/logout">Logout</a>
+            <% } else { %>
+              <a class="button is-primary" href="/users/login">Sign In</a>
+              <% } %>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      <h1 class="title is-3">Edit Profile</h1>
+
+      <!-- Form to Edit User Profile -->
+      <form method="POST" action="/users/edit/<%= user._id %>">
+        <!-- Member Name Field -->
+        <div class="field">
+          <label class="label">Member Name</label>
+          <div class="control">
+            <input class="input" type="text" name="membername" value="<%= user.membername %>" required>
+          </div>
+        </div>
+
+        <!-- Buttons for submission and cancellation -->
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-primary" type="submit">Save Changes</button>
+          </div>
+          <div class="control">
+            <a class="button is-light" href="/users/profile">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        Store Management © 2024. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</body>
+
+</html>
